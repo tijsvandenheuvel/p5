@@ -15,7 +15,8 @@ function setup() {
     //colorPerTriangle = getColorsPerTriangleRandom();
     colorPerTriangle = getColorsPerTriangleGradient();
 
-    specificPoints = drawPointsOnSphereByIds([1,6,7,22,23,48,49]);
+    // these points form a T
+    specificPoints = drawPointsOnSphereByIds([1,6,7,22,23,48,49,2,11,19,42,75]);
 
     singleCoordinate = getCooById(1);
 
@@ -33,19 +34,23 @@ function draw(){
     background(50);
     stroke(255);
 
+    // turn shape with mouse
     orbitControl();
-    //doRotate();
+
+    // auto turn 
+    doRotate();
     
-    drawIcosaederVertices();
+    //drawIcosaederVertices();
     //drawIcosaederEdges();
     //drawPointsOnIcosaederFaces(pointsInTriangles);
 
     drawPointsOnSphere(colorPerTriangle);
+    drawSphere();
 
     //colorSpecificPointsOnSphereCode(colorPerTriangle);
-    //colorSpecificPointsOnSphere(specificPoints,colorPerTriangle);
+    colorSpecificPointsOnSphere(specificPoints,colorPerTriangle);
 
-    drawSphere();
+    
 }
 
 // ------------------------------------------
@@ -68,7 +73,7 @@ function drawIcosaederEdges(){
 }
 
 function drawIcosaederVertices(){
-    c = color('DarkViolet');
+    let c = color('DarkViolet');
     vectors.forEach(function(v){
         push();
         fill(c);
@@ -80,7 +85,7 @@ function drawIcosaederVertices(){
 }
 
 function drawPointsOnIcosaederFaces(innerPoints){
-    c = color(255, 0, 255);
+    let c = color(255, 0, 255);
     innerPoints.forEach(function(points){
         points.forEach(function(p){
             push();
@@ -133,7 +138,7 @@ function colorSpecificPointsOnSphere(specificPoints,colors){
 }
 
 function drawPointsOnSphere(colors){
-    i=0
+    let i=0
     goldBergPolyherdon.forEach(function(triangle){
         triangle.forEach(function(v){
             push();
@@ -149,8 +154,6 @@ function drawPointsOnSphere(colors){
     })
 }
 
-
-
 function drawSphere(){
     push();
     translate(0, 0, 0);
@@ -160,9 +163,9 @@ function drawSphere(){
 }
 
 function doRotate(){
-    //rotateZ(frameCount * 0.003);
-    rotateX(frameCount * 0.003);
-    //rotateY(frameCount * 0.003);
+    rotateZ(frameCount * 0.001);
+    rotateX(frameCount * 0.001);
+    rotateY(frameCount * 0.001);
 }
 
 // ------------------------------------------
@@ -170,9 +173,9 @@ function doRotate(){
 // ------------------------------------------
 
 function initializeIcosaeder(length){
-    a = length
-    phi = (1+sqrt(5))/2
-    b = length*phi/2
+    let a = length
+    let phi = (1+sqrt(5))/2
+    let b = length*phi/2
 
     // vertices
     v1=createVector(0, b,-a);
@@ -286,8 +289,9 @@ function getAllCoordinates(){
 }
 
 function getCoo(t_int,t_arr,id){
-    up = [0,1,12,8,14,10,3,4,18,16];
-    down = [6,7,11,19,17,15,13,2,9,5];
+    gp = goldBergPolyherdon
+    let up = [0,1,12,8,14,10,3,4,18,16];
+    let down = [6,7,11,19,17,15,13,2,9,5];
     if(up.includes(t_int)){
         // point in gp in triangle
         return gp[t_int][t_arr.indexOf(id)]
@@ -298,7 +302,6 @@ function getCoo(t_int,t_arr,id){
 }
 
 function getCooById(id){
-        gp = goldBergPolyherdon;
         t0 = [1,20,6,7,44,45,21,22,23,78,79,80,46,47,48,49]
         t1 = [2,8,9,10,24,25,26,27,28,50,51,52,53,54,55,56]
         t12 = [3,11,12,13,29,30,31,32,33,57,58,59,60,61,62,63]
@@ -319,7 +322,6 @@ function getCooById(id){
         t11 = [241,242,243,244,245,246,247,276,277,278,279,280,301,302,303,316]
         t19 = [248,249,250,251,252,253,254,281,282,283,284,285,304,305,306,317]
         t6 = [255,256,257,258,259,260,261,286,287,288,289,290,307,308,309,318]
-        t=[];
         // top 
         if(t0.includes(id)){
             return getCoo(0,t0,id)
@@ -366,7 +368,6 @@ function getCooById(id){
         }
 }
 
-line0=[1,6,7,22,23,48,49]
 function drawPointsOnSphereByIds(ids){
     let selectedPoints = []
     ids.forEach(id=>{
@@ -374,7 +375,6 @@ function drawPointsOnSphereByIds(ids){
     })
     return selectedPoints;
 }
-    
 
 // ------------------------------------------
 // COLOR TRIANGLE FUNCTIONS
