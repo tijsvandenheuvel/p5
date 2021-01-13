@@ -1,18 +1,21 @@
     // TODO 
-    // parameterize radius - rotation center ratio
+    // dynamically calculate position of final module 
+        // follow all vector transformations
 
     function setup(modules=2,radius=150,height=50) {
-        createCanvas(750, 750, WEBGL);
+        createCanvas(windowWidth/2, windowHeight, WEBGL);
+
+        ui_pos = windowWidth/2 - 250; 
     
         text = createElement('h3', "default: 2, 150, 50");   
-        text.position(500, 0);
+        text.position(ui_pos, 0);
     
         input1 = createInput();
-        input1.position(490, 40);
+        input1.position(ui_pos, 40);
         input2 = createInput();
-        input2.position(490, 60);
+        input2.position(ui_pos, 60);
         input3 = createInput();
-        input3.position(490, 80);
+        input3.position(ui_pos, 80);
       
         button1 = createButton('change amount');
         button1.position(input1.x + input1.width, 40);
@@ -76,18 +79,20 @@
     }
     
     function getSliders(amount){
+        length = windowWidth/8
+
         let sliders =[]
     
         for(i=0;i<amount;i++){
             // open close slider
             let slider = createSlider(0, PI/2, 0, 0.001); // min, max, start
             slider.position(10,10+i*20); // x and y
-            slider.size(200, 20);
+            slider.size(length, 20);
     
             // turn around slider
             let slider2 = createSlider(0, 2*PI, 0, 0.001); // min, max, start
-            slider2.position(220,10+ i*20); // x and y
-            slider2.size(200, 20);
+            slider2.position(length+20,10+ i*20); // x and y
+            slider2.size(length, 20);
             
             let subsliders =[slider,slider2]
             sliders.push(subsliders)
