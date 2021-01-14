@@ -180,11 +180,7 @@ function getBottomCoordinatesMulti(){
 
     // SECOND MODULE
 
-        // rotate around new y-axis
-        // deze werkt nog niet
-        // afhankelijk van b1
-        a2 = sliders[0][1].value()
-        coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)), coo.y, (coo.x*sin(a2))+(coo.z*cos(a2)))
+        
 
         // move trough top segment
         //coo = createVector(coo.x, coo.y+h, coo.z)
@@ -206,6 +202,11 @@ function getBottomCoordinatesMulti(){
         coo = createVector((coo.x*cos(a1))-(coo.z*sin(a1)), coo.y, (coo.x*sin(a1))+(coo.z*cos(a1)))
 
 
+        // rotate around new y-axis
+        // deze werkt nog niet
+        // afhankelijk van b1
+        a2 = sliders[0][1].value()
+        //coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)), coo.y, (coo.x*sin(a2))+(coo.z*cos(a2)))
         
         // bij a2 = 180° wille we 
         //coo = createVector(coo.x-100, coo.y+100, coo.z)
