@@ -3,9 +3,9 @@
         // follow all vector transformations
 
     function setup(modules=2,radius=150,height=50) {
-        createCanvas(windowWidth/2, windowHeight, WEBGL);
+        createCanvas(windowWidth*2/3, windowHeight, WEBGL);
 
-        ui_pos = windowWidth/2 - 250; 
+        ui_pos = windowWidth*2/3 - 260; 
     
         text = createElement('h3', "default: 2, 150, 50");   
         text.position(ui_pos, 0);
