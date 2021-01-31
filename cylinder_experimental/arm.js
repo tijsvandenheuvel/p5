@@ -191,7 +191,6 @@ function getBottomCoordinatesMulti(){
 
         // 4. rotate around z-axis
         b2 = sliders[0][0].value()
-        //coo = createVector(coo.x-(r*ratio*cos(b2)), coo.y+(r*ratio*sin(b2)), coo.z)
         coo = createVector(coo.x-(r*ratio*cos(b2+b1)), coo.y+(r*ratio*sin(b2+b1)), coo.z)
 
         coo = createVector(coo.x+(h*sin(b1+b2)), coo.y+(h*cos(b1+b2)), coo.z)
@@ -202,17 +201,22 @@ function getBottomCoordinatesMulti(){
         coo = createVector((coo.x*cos(a1))-(coo.z*sin(a1)), coo.y, (coo.x*sin(a1))+(coo.z*cos(a1)))
 
 
+
         // rotate around new y-axis
         // deze werkt nog niet
-        // afhankelijk van b1
+        // a2 afhankelijk van b1 
+        // b2 afhankelijk van a2 ? 
         a2 = sliders[0][1].value()
-        //coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)), coo.y, (coo.x*sin(a2))+(coo.z*cos(a2)))
-        
-        // bij a2 = 180° wille we 
-        //coo = createVector(coo.x-100, coo.y+100, coo.z)
 
-        // bij a2 = 90° wille we 
-        //coo = createVector(coo.x-100, coo.y+100, coo.z)
+        //deze werkt als b1 = 0 dus as == y-as
+        //coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)),coo.y, +(coo.x*sin(a2))+(coo.z*cos(a2)))
+
+        // als b2 = 90 dus y-as -> x-as
+        //coo = createVector(coo.x,(coo.y*cos(a2))-(coo.z*sin(a2)),+(coo.y*sin(a2))+(coo.z*cos(a2)))
+
+        //coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)),((coo.x*sin(b1+b2)))+(coo.y*cos(b1+b2)), (coo.x*sin(a2))+(coo.z*cos(a2)))
+        //coo = createVector((coo.x*cos(a2))-(coo.z*sin(a2)),((coo.x*sin(b1)))+(coo.y*cos(b1)), (coo.x*sin(a2))+(coo.z*cos(a2)))
+        
 
     if(frameCount%100==0){
         console.log('b2:',b2*180/PI,'b1:',b1*180/PI)
