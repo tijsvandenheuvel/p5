@@ -1,14 +1,23 @@
 # p5_visuals
-some p5.js projects
 
-## goldberg polyhedron
+This repo contains some p5.js projects
+
+## Goldberg polyhedron
 
 This is a project to get the coordinates and a visualization of a (4,0) goldberg polyhedron
 
-to run open goldberg_polyhedron/index.html in a browser
+To run open goldberg_polyhedron/index.html in a browser or go to [https://tijsvandenheuvel.github.io/goldberg_polyhedron/]
 
-## cylinder robot arm
+## Cylinder robot arm
 
 This is a visualization of the movement of a cylindrical robot arm with a variable amount of modules. 
 
-to run open cylinder_robot_arm/index.html in a browser
+to run open cylinder_robot_arm/index.html in a browser or go to [https://tijsvandenheuvel.github.io/cylinder_robot_arm/]
+
+## Evolution
+
+This is a simple example of evolutionary algorithms.
+
+The rockes learn to reach the target by reproducing and evolving.
+
+To run open cylinder_robot_arm/index.html in a browser or go to [tijsvandenheuvel.github.io/evolution]
