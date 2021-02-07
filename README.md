@@ -20,4 +20,4 @@ This is a simple example of evolutionary algorithms.
 
 The rockes learn to reach the target by reproducing and evolving.
 
-To run open cylinder_robot_arm/index.html in a browser or go to [tijsvandenheuvel.github.io/evolution]
+To run open cylinder_robot_arm/index.html in a browser or go to [https://tijsvandenheuvel.github.io/evolution/]
