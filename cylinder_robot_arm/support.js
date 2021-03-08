@@ -86,6 +86,10 @@ function getSliders(amount){
         let slider2 = createSlider(0, 2*PI, 0, 0.001); // min, max, start
         slider2.position(length+20,10+ i*20); // x and y
         slider2.size(length, 20);
+
+        if(i===amount-1){
+            slider2.hide()
+        }
         
         let subsliders =[slider,slider2]
         sliders.push(subsliders)
