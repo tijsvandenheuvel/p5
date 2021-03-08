@@ -26,6 +26,7 @@ function Population(size,lifespan){
             }        
         }
 
+
         this.evaluate()
         this.selection()
 
@@ -80,5 +81,13 @@ function Population(size,lifespan){
         
         
         this.rockets = this.rockets.concat(newRockets)
+    }
+
+    this.addVehicle = (dna,pos,vel) => {
+        pos= createVector(pos.x+random(-50,50),pos.y+random(-50,50))
+        vel = createVector(-vel.x,-vel.y)
+        let v = new Vehicle(lifespan,dna,pos,vel);
+        v.dna.mutation();
+        this.rockets.push(v);
     }
 }

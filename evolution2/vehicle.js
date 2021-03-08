@@ -1,4 +1,4 @@
-function Vehicle(lifespan,dna){
+function Vehicle(lifespan,dna,pos,vel){
 
     // constructor
     if(dna){
@@ -6,9 +6,19 @@ function Vehicle(lifespan,dna){
      }else{
          this.dna = new DNA();
      }
+     if(pos){
+        this.pos = pos;
+    }else{
+        this.pos = createVector(random(0,width),random(0,height));
+    }
+    if(vel){
+        this.vel = vel;
+    }else{
+        this.vel = createVector();
+    }
 
-    this.pos = createVector(random(0,width),random(0,height));
-    this.vel = createVector();
+    
+    
     this.acc = createVector();
 
     this.health = 255;
@@ -18,7 +28,6 @@ function Vehicle(lifespan,dna){
     this.alive=true;
     this.crashed=false;
 
-    //this.timeFactor=lifespan;
 
     this.applyForce = function(force){
         this.acc.add(force);
@@ -26,38 +35,31 @@ function Vehicle(lifespan,dna){
 
 
     this.update = function(food){
-
-        // check if dead logic
-        // check if found food
         
-        // if food is in vehicle
+        // check if found food
         let popsize = food.length;
         let mind = 100;
         let minid = 0;
 
         for (let i = 0; i < popsize; i++) {
             var d = dist(this.pos.x,this.pos.y,food[i].pos.x,food[i].pos.y);
-
             if(d<mind){
                 mind = d;
                 minid = i;
             }
-
             if(d<10){
                 this.health +=50;
                 food[i].eaten();
             }
         }
 
-        //check if crashed against wall
-        if(this.pos.x>width||this.pos.x<0){
-            this.crashed=true;
-        }
-        if(this.pos.y>height||this.pos.y<0){
-            this.crashed=true;
-        }
-
-        
+        // //check if crashed against wall
+        // if(this.pos.x>width||this.pos.x<0){
+        //     this.crashed=true;
+        // }
+        // if(this.pos.y>height||this.pos.y<0){
+        //     this.crashed=true;
+        // }
 
         //this.applyForce(this.dna.genes[count])
 
@@ -69,10 +71,18 @@ function Vehicle(lifespan,dna){
             this.acc.mult(0);
             this.vel.limit(this.maxspeed);
         }
+
+        // Die
         this.health-=(1+this.maxspeed);
         if(this.health<1){
             this.alive=false;
             food_population.addFoodParticle(this.pos);
+        }
+
+        // reproduce
+        if(this.health>400){
+            this.health-=255;
+            agent_population.addVehicle(this.dna,this.pos,this.vel);
         }
         
     }
@@ -98,7 +108,7 @@ function Vehicle(lifespan,dna){
     this.show = function(){
         push();
         noStroke();
-        fill(this.health+50);
+        fill(this.dna.genes[2],this.dna.genes[3],this.dna.genes[4],this.health+50);
         
         translate(this.pos.x,this.pos.y);
         rotate(this.vel.heading());
@@ -111,4 +121,53 @@ function Vehicle(lifespan,dna){
         this.update();
         this.show();
     }
+    this.go = (popu) => {
+
+        // Die
+        this.health-=1;
+        if(this.health<1){
+            this.alive=false;
+            food_population.addFoodParticle(this.pos);
+        }
+
+        let popsize = popu.length;
+        let mind = 100;
+        let minid = 0;
+
+        for (let i = 0; i < popsize; i++) {
+            var d = dist(this.pos.x,this.pos.y,popu[i].pos.x,popu[i].pos.y);
+            // &&popu[i].dna.genes[2]>50&&popu[i].dna.genes[4]>50
+            if(d<mind&&popu[i].dna.genes[3]<200){
+                mind = d;
+                minid = i;
+            }
+            if(d<10){
+                this.health +=popu[i].health;
+                popu[i].eaten();
+            }
+        }
+
+        this.seek(popu[minid].pos);
+
+        if(this.alive&&!this.crashed){
+            this.vel.add(this.acc);
+            this.pos.add(this.vel);
+            this.acc.mult(0);
+            this.vel.limit(this.maxspeed);
+        }
+
+
+        push();
+        noStroke();
+        fill(255,0,0,this.health+50);
+        
+        translate(this.pos.x,this.pos.y);
+        rotate(this.vel.heading());
+        rectMode(CENTER);
+        rect(0,0,20,10);
+        pop();
+
+    }
+
+    this.eaten = () => {this.alive=false}
 }

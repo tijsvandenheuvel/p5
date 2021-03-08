@@ -18,14 +18,16 @@ function setup(){
 
     createCanvas(800,650);
     //rocket = new Vehicle(lifespan);
-    let pop_size = 200;
+    let pop_size = 50;
     agent_population = new Population(pop_size,lifespan);
 
-    let food_size = 1;
+    let food_size = 100;
     food_population = new FoodPopulation(food_size);
 
     lifeP = createP();
     //target =createVector(width/2,50);
+
+    bigBos = new Vehicle(500,new DNA([5,3]));
 }
 
 function draw(){
@@ -35,6 +37,7 @@ function draw(){
         //rocket.run();
         agent_population.run(food_population.food);
         food_population.run();
+        bigBos.go(agent_population.rockets);
     
         lifeP.html(count);
         
@@ -61,10 +64,12 @@ function draw(){
             avg_force=nf(avg_force,1,2)
             avg_health=nf(avg_health,1,2)
 
-            console.log("gen",generation,"agents",alive_vehicles,"food",alive_food,'speed',avg_speed,'force',avg_force,'health',avg_health);
+            //console.log("gen",generation,"agents",alive_vehicles,"food",alive_food,'speed',avg_speed,'force',avg_force,'health',avg_health);
+            console.log('bigbos',bigBos.health,'agents',alive_vehicles,'speed',avg_speed
+            )
             history[generation]=[alive_vehicles,alive_food,avg_speed,avg_force,avg_health];
     
-            agent_population.reproduce();
+            //agent_population.reproduce();
             count=0;
             generation++;
     
