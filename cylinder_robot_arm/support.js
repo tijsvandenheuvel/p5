@@ -39,7 +39,7 @@ function createUIElements(){
     checkbox_color.position(windowWidth*2/3 +10 ,130)
 
     // creeer checkbox om lijnen aan en uit te zetten
-    checkbox_lines = createCheckbox('draw lines', false);
+    checkbox_lines = createCheckbox('draw lines', true);
     checkbox_lines.changed(myCheckedEvent3);
     checkbox_lines.position(windowWidth*2/3 +10 ,150)
 
