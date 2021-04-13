@@ -121,6 +121,20 @@ function getVectors(){
     // wanneer hoek open1 opent moeten dus alle volgende punten rond 
     // de nieuwe middenas roteren en niet rond de y-as
 
+    U = createVector(coo6.x/rot,coo6.y/rot,coo6.z/rot)
+    C = (coo6.x/rot)*sin(rot)
+    D = 1-cos(rot)
+
+    // R = I* cos(rot) + D * U * UT + C
+    // coo6OM = R * coo6
+
+    OMX = coo6.x*(cos(rot)+D*U.x*U.x+C)+coo6.y*(D*U.x*U.y+C)+coo6.z*(D*U.x*U.z+C)
+    OMY = coo6.x*(D*U.y*U.x+C)+coo6.y*(cos(rot)+D*U.y*U.y+C)+coo6.z*(D*U.y*U.z+C)
+    OMZ = coo6.x*(D*U.z*U.x+C)+coo6.y*(D*U.z*U.y+C)+coo6.z*(cos(rot)+D*U.z*U.z+C)
+
+    coo6OM = createVector(OMX,OMY,OMZ)
+    
+
     // werkt als hoek open1 0° is (dus rond normale y-as)
     coo6A = createVector(coo6.x*cos(rot)-coo6.z*sin(rot), coo6.y, coo6.x*sin(rot)+coo6.z*cos(rot))
 
@@ -154,6 +168,6 @@ function getVectors(){
     coo8 = createVector(coo7.x+h*sin(open1+open2),coo7.y+h*cos(open1+open2),coo7.z)
     coo8A = createVector(coo8.x*cos(rot)-coo8.z*sin(rot), coo8.y, coo8.x*sin(rot)+coo8.z*cos(rot))
 
-    return [coo0,coo1,coo2,coo3,coo4,coo5,coo6A,coo7A,coo8A];
+    return [coo0,coo1,coo2,coo3,coo4,coo5,coo6A,coo7A,coo8A,coo6OM];
 }
 

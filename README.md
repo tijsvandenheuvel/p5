@@ -29,3 +29,12 @@ This is a simple example of evolutionary algorithms.
 The rockes try to survive by eating food. The faster a rocket goes, the faster it dies. Healthy rockets can reproduce
 
 To run open evolution2/index.html in a browser or click [here](https://tijsvandenheuvel.github.io/evolution2/)
+
+## ant simulation 
+
+This is an attempt to simulate and behavior
+
+The seeking algortihm isn't implemented yet.
+
+To run open antsimulation/index.html in a browser or click [here](https://tijsvandenheuvel.github.io/antsimulation/)
+
