@@ -74,6 +74,7 @@ function Ant(id,maxspeed,maxforce,pos,vel){
             let d = dist(this.pos.x,this.pos.y,colonyObject.pos.x,colonyObject.pos.y);
             if(d<colonyObject.size/2){
                 this.foundFood=false;
+                this.vel = createVector();
             }
         }else{
             let d = dist(this.pos.x,this.pos.y,foodObject.pos.x,foodObject.pos.y);
