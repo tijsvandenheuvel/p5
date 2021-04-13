@@ -4,7 +4,7 @@ var count = 0;
 
 var maxforce = 0.5;
 var maxspeed = 3;
-var pop_size = 150;
+var pop_size = 100;
 
 var runsim=true;
 
