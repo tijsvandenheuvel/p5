@@ -4,7 +4,7 @@ var count = 0;
 
 var maxforce = 0.5;
 var maxspeed = 3;
-var pop_size = 100;
+var pop_size = 150;
 
 var runsim=true;
 
@@ -13,8 +13,10 @@ function myCheckedEvent() {
 }
 
 function setup(){
-    
 
+    fps = frameRate();
+
+    
     checkbox = createCheckbox('run', true);
     checkbox.changed(myCheckedEvent);
 
@@ -23,20 +25,8 @@ function setup(){
     createCanvas(screenWidth,screenHeight);
 
     lifeP = createP();
-
-    
-    
+ 
     ant_population = new AntPopulation(pop_size,maxspeed,maxforce);
-
-    //let food_size = 100;
-    //particle_population = new ParticlePopulation(particle_size);
-
-    
-    //target =createVector(width/2,50);
-
-    //bigBos = new Ant(500,new DNA([5,3]));
-
-    //console.log(ant_population.ants[0])
 
     foodObject = new FoodObject(50);
     colonyObject = new ColonyObject(50);
@@ -48,22 +38,28 @@ function draw(){
     if(runsim){
         background(0);
 
-        //rocket.run();
-        ant_population.run();
-        //food_population.run();
-
+        push()
+            fill(255);
+            stroke(0);
+            text("FPS: " + fps.toFixed(2), 10, height - 10);
+        pop()
+        
         particles = particles.filter((particle)=>{ 
             return particle.age>100;
         });
 
+        for(i=0;i<particles.length;i++){
+            particles[i].show();
+        }
+        updatePixels();
+
+        ant_population.run();
+
         foodObject.show();
         colonyObject.show();
 
-
-    
         lifeP.html(count);
         count++;
-      
     }
 }
     

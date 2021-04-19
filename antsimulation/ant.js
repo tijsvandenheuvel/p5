@@ -55,12 +55,28 @@ function Ant(id,maxspeed,maxforce,pos,vel){
             this.vel.limit(this.maxspeed);
         }
 
-        if(this.pos.x>screenWidth||this.pos.x<0){
-            this.vel.x=-this.vel.x
-        }
-        if(this.pos.y>screenHeight||this.pos.y<0){
-            this.vel.y=-this.vel.y
-        }
+        // // bounce against walls
+        // if(this.pos.x>screenWidth||this.pos.x<0){
+        //     this.vel.x=-this.vel.x
+        // }
+        // if(this.pos.y>screenHeight||this.pos.y<0){
+        //     this.vel.y=-this.vel.y
+        // }
+
+        // // infinite space
+        // if(this.pos.x>screenWidth){ this.pos.x = 0 }
+        // if(this.pos.x<0){ this.pos.x = screenWidth}
+        // if(this.pos.y>screenHeight){ this.pos.y = 0 }
+        // if(this.pos.y<0){ this.pos.y = screenHeight}
+
+
+        // just walls
+        if(this.pos.x>screenWidth){ this.pos.x = screenWidth; this.vel = createVector() }
+        if(this.pos.x<0){ this.pos.x = 0}
+        if(this.pos.y>screenHeight){ this.pos.y = screenHeight; this.vel = createVector() }
+        if(this.pos.y<0){ this.pos.y = 0; this.vel = createVector()}
+
+
 
         if(frameCount%10==0){
             this.addPosToPath();
@@ -82,23 +98,29 @@ function Ant(id,maxspeed,maxforce,pos,vel){
                 this.foundFood=true;
             }
         }
-        // follow particles if there are any
-        if(particles.length>1){
-            this.seek(this.getTarget(),this.maxforce)
-        }
+
 
         if(this.foundFood==true){
             this.seek(colonyObject.pos,0.2)
         }
+        // follow particles if there are any
+        // max force = 0.5
+        if(particles.length>1){
+            let target = this.getTarget()
+            if(target){
+                if(target.toHome){
+                    this.seek(target.pos,this.maxforce*(target.age/255))
+                }else{
+                    this.seek(target.pos,this.maxforce*(target.age/255)*2)
+                }
+                
+            }
+        }
+
+        
 }
 
-   
-
-    // seek closest / strongest particle in front
-    // if found food follow 'home' particles
-    // if not found food follow 'away' particles
-    // if not found follow home particles in reverse
-
+// get direction by where the most feromones are
 
     this.getTarget = () => {
 
@@ -111,34 +133,27 @@ function Ant(id,maxspeed,maxforce,pos,vel){
 
         for (let i = 0; i < particles.length; i++) {
 
-                if(!this.foundFood){
-                    d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y);
-                    if(particles[i].toHome){
-                        d=d*0.5;
-                    }
-                }
-                else{
-                    d=101;
-                }
+            // if found food just go home
+            if(this.foundFood&&!particles[i].toHome){
+                d=101;
+            }
 
-                
-                
+            // if found food just go home
+            if(this.foundFood&&particles[i].toHome){
+                d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y);
+            }
+            // if not found food follow to food particles
+            else if(!this.foundFood&&!particles[i].toHome){
+                d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y);
+            }
+            // else follow to home particles
+            else if(!this.foundFood&&particles[i].toHome){
+                d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y)*0.5;
 
-                // // you havent found food and find a to food marker
-                // if((!this.foundFood&&!particles[i].toHome)){
-                //     d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y);
-                // }
-                // // you have found food and find a to home marker
-                // else if(this.foundFood&&particles[i].toHome){
-                //     d = dist(frontpos.x,frontpos.y,particles[i].pos.x,particles[i].pos.y);
-                // }
-                // // you have found food and find a to food marker
-                // else if(this.foundFood&&!particles[i].toHome){
-                //     d = 100;
-                // }
-                // else{
-                //     d = 100
-                // }
+            }
+            else{
+                d=101;
+            }
                 
                 if(d<mind){
                     mind = d;
@@ -146,7 +161,7 @@ function Ant(id,maxspeed,maxforce,pos,vel){
                 }
         }
         if(mind<20){
-            return particles[minid].pos
+            return particles[minid]
         }
         
     }
@@ -168,11 +183,6 @@ function Ant(id,maxspeed,maxforce,pos,vel){
 
    this.show = () => {
 
-    // show path
-    for(i=0;i<this.path.length;i++){
-        this.path[i].show();
-    }
-
     // show self
     push();
         noStroke();
@@ -182,7 +192,8 @@ function Ant(id,maxspeed,maxforce,pos,vel){
         rotate(this.vel.heading());
         rectMode(CENTER);
         rect(0,0,6,3);
-        pop();
+    pop();
+
    }
 
     this.run = () => {
