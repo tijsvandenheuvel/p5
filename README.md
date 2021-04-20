@@ -36,5 +36,5 @@ This is an attempt to simulate and behavior
 
 The seeking algortihm isn't implemented yet.
 
-To run open antsimulation/index.html in a browser or click [here](https://tijsvandenheuvel.github.io/antsimulation/)
+To run open antsim/index.html in a browser or click [here](https://tijsvandenheuvel.github.io/antsim/)
 
