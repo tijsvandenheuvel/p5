@@ -1,48 +1,34 @@
 function Ant(id,maxspeed,maxforce,pos,vel){
 
-    this.id = id
-    this.maxspeed = maxspeed
-    this.maxforce = maxforce
+    this.constructor = () => {
+        this.id = id
+        this.maxspeed = maxspeed
+        this.maxforce = maxforce
+    
+        this.foundFood = false;
 
-    this.foundFood = false;
+        if(pos){
+            this.pos = pos;
+        }else{
+             //this.pos = createVector(random(0,screenWidth),random(0,screenHeight));
+             this.pos = createVector(screenWidth/2,screenHeight/2);
+        }
+        if(vel){
+            this.vel = vel;
+        }else{
+             this.vel = createVector();
+        }
+     
+        this.acc = createVector();
+     
+        this.alive = true;
+        this.crashed = false;
+     
+        this.path = [];
 
-    // constructor
-    if(pos){
-       this.pos = pos;
-   }else{
-        //this.pos = createVector(random(0,screenWidth),random(0,screenHeight));
-        this.pos = createVector(screenWidth/2,screenHeight/2);
-   }
-   if(vel){
-       this.vel = vel;
-   }else{
-        this.vel = createVector();
-   }
-
-   this.acc = createVector();
-
-   this.alive = true;
-   this.crashed = false;
-
-   this.path = [];
-
-   this.applyForce = function(force){
-    this.acc.add(force);
     }
 
-    // this.randomForce = () => {
-    //     noiseVal = noise(frameCount*this.id)
-    //     if(frameCount%100==0){
-    //         console.log(noiseVal)
-    //     }
-        
-    //     return createVector(this.maxforce*noiseVal*2-1,this.maxforce*noiseVal*2-1)
-    // }
-
-    this.randomForce = () => {
-        return createVector(random(-this.maxforce,this.maxforce),
-                            random(-this.maxforce,this.maxforce))
-    }
+    this.constructor();
 
     this.update = () =>{
 
@@ -55,47 +41,27 @@ function Ant(id,maxspeed,maxforce,pos,vel){
             this.vel.limit(this.maxspeed);
         }
 
-        // // bounce against walls
-        // if(this.pos.x>screenWidth||this.pos.x<0){
-        //     this.vel.x=-this.vel.x
-        // }
-        // if(this.pos.y>screenHeight||this.pos.y<0){
-        //     this.vel.y=-this.vel.y
-        // }
-
-        // // infinite space
-        // if(this.pos.x>screenWidth){ this.pos.x = 0 }
-        // if(this.pos.x<0){ this.pos.x = screenWidth}
-        // if(this.pos.y>screenHeight){ this.pos.y = 0 }
-        // if(this.pos.y<0){ this.pos.y = screenHeight}
-
-
-        // just walls
-        if(this.pos.x>screenWidth){ this.pos.x = screenWidth; this.vel = createVector() }
-        if(this.pos.x<0){ this.pos.x = 0}
-        if(this.pos.y>screenHeight){ this.pos.y = screenHeight; this.vel = createVector() }
-        if(this.pos.y<0){ this.pos.y = 0; this.vel = createVector()}
-
-
+        //this.bounceAgainstWalls() 
+        //this.infiniteSpace()
+        this.stopAtWalls();
 
         if(frameCount%10==0){
-            this.addPosToPath();
-
-            this.path = this.path.filter((particle)=>{ 
-                return particle.age>100;
-            });
+            this.updatePath();
         }
 
         if(this.foundFood){
             let d = dist(this.pos.x,this.pos.y,colonyObject.pos.x,colonyObject.pos.y);
+            // is Home
             if(d<colonyObject.size/2){
                 this.foundFood=false;
                 this.vel = createVector();
             }
         }else{
             let d = dist(this.pos.x,this.pos.y,foodObject.pos.x,foodObject.pos.y);
+            // is at food
             if(d<foodObject.size/2){
                 this.foundFood=true;
+                this.vel = createVector();
             }
         }
 
@@ -106,23 +72,19 @@ function Ant(id,maxspeed,maxforce,pos,vel){
         // follow particles if there are any
         // max force = 0.5
         if(particles.length>1){
-            let target = this.getTarget()
+            let target = this.getTargetParticle()
             if(target){
                 if(target.toHome){
                     this.seek(target.pos,this.maxforce*(target.age/255))
                 }else{
                     this.seek(target.pos,this.maxforce*(target.age/255)*2)
                 }
-                
             }
-        }
+        }  
+    }
 
-        
-}
-
-// get direction by where the most feromones are
-
-    this.getTarget = () => {
+    // TODO: get direction by where the most feromones are
+    this.getTargetParticle = () => {
 
         let mind = 100;
         let minid = 0;
@@ -166,6 +128,16 @@ function Ant(id,maxspeed,maxforce,pos,vel){
         
     }
 
+    this.applyForce = (force) => {
+        this.acc.add(force);
+    }
+
+    // TODO: random force only in direction of heading
+    this.randomForce = () => {
+        return createVector(random(-this.maxforce,this.maxforce),
+                            random(-this.maxforce,this.maxforce))
+    }
+
     this.seek = (target,force) => {
         if(target){
             // vector: location -> target
@@ -180,34 +152,53 @@ function Ant(id,maxspeed,maxforce,pos,vel){
         }
     }
 
-
-   this.show = () => {
-
-    // show self
-    push();
-        noStroke();
-
-        fill(255,255,255);
-        translate(this.pos.x,this.pos.y);
-        rotate(this.vel.heading());
-        rectMode(CENTER);
-        rect(0,0,6,3);
-    pop();
-
-   }
-
-    this.run = () => {
-        this.update();
-        this.show();
+    this.bounceAgainstWalls = () => {
+        if(this.pos.x>screenWidth||this.pos.x<0){
+            this.vel.x=-this.vel.x
+        }
+        if(this.pos.y>screenHeight||this.pos.y<0){
+            this.vel.y=-this.vel.y
+        }
     }
 
-    this.addPosToPath = () => {
-        let  age = 255;
-         if(this.foundFood==true){
-             this.path.push(new Particle(createVector(this.pos.x,this.pos.y),age,true))
-         }else{
-             this.path.push(new Particle(createVector(this.pos.x,this.pos.y),age,false))
-         }
-     }
+    this.infiniteSpace = () => {
+        if(this.pos.x>screenWidth){ this.pos.x = 0 }
+        if(this.pos.x<0){ this.pos.x = screenWidth}
+        if(this.pos.y>screenHeight){ this.pos.y = 0 }
+        if(this.pos.y<0){ this.pos.y = screenHeight}
+    }
 
+    this.stopAtWalls = () => {
+        if(this.pos.x>screenWidth){ this.pos.x = screenWidth; this.vel = createVector() }
+        if(this.pos.x<0){ this.pos.x = 0}
+        if(this.pos.y>screenHeight){ this.pos.y = screenHeight; this.vel = createVector() }
+        if(this.pos.y<0){ this.pos.y = 0; this.vel = createVector()}
+    }
+
+    this.updatePath = () => {
+        // add to path
+        let  age = 255;
+        if(this.foundFood==true){
+            this.path.push(new Particle(createVector(this.pos.x,this.pos.y),age,true))
+        }else{
+            this.path.push(new Particle(createVector(this.pos.x,this.pos.y),age,false))
+        }
+
+        //remove from path
+        this.path = this.path.filter((particle)=>{ 
+            return particle.age>100;
+        });
+    }
+
+    this.show = () => {
+        push();
+            noStroke();
+    
+            fill(255,255,255);
+            translate(this.pos.x,this.pos.y);
+            rotate(this.vel.heading());
+            rectMode(CENTER);
+            rect(0,0,6,3);
+        pop();
+    }
 }
