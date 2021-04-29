@@ -75,8 +75,8 @@ class Branch extends AbstractBranch{
                     this.width*=1.1
                 }else{
                     // if small grow faster
-                    this.width*=(1+this.width/availableWidth/10)
-                    
+                    this.width*=(1+this.width/availableWidth/100)
+                    console.log((1+this.width/availableWidth/100))
                 }
                 
             }

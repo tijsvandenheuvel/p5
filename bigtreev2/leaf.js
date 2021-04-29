@@ -24,7 +24,7 @@ class Leaf extends AbstractBranch{
 
     age = () => {
         if(this.width<=baseWidth*2){
-            this.width*=1.05
+            this.width*=1.01
         }else{
             this.parent.nextBranches = this.parent.nextBranches.filter((branch)=>{ 
                 return branch !== this;

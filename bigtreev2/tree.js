@@ -26,6 +26,11 @@ class Tree{
             return !branch.dead;
         });
 
+         // remove branches that are larger than parent
+         this.canopy = this.canopy.filter((branch)=>{ 
+            return branch.parent.width > branch.width||branch.isLeaf();
+        });
+
         // remove leaves without parents
         this.canopy = this.canopy.filter((branch)=>{ 
             return this.canopy.includes(branch.parent)||!branch.isLeaf();
@@ -37,7 +42,7 @@ class Tree{
         }
 
         // get bigger over time
-        if(frameCount%200==0){
+        if(frameCount%100==0){
             for (let i=0;i<this.canopy.length;i++){
                 this.canopy[i].age();
             }
