@@ -1,5 +1,17 @@
+var data;
 
+function preload(){
+    data = loadJSON('https://tijsvandenheuvel.github.io/infovis/data.json')
+
+}
 function setup(){
+
+
+    let inp = createInput('');
+    inp.position(10, 10);
+    inp.size(200);
+    inp.input(myInputEvent);
+
 
     screenHeight = windowHeight-30
     screenWidth = windowWidth-30
@@ -28,13 +40,25 @@ function draw(){
 
 drawWord = (text_string,text_size,pos) => {
 
+    textSize(text_size);
+
+    text_width = textWidth(text_string)
+
     rectMode(CENTER)
-    
-    fill(200, 200, 200);
-    rect(pos.x, pos.y, text_size*(0.6*text_string.length), text_size,10);
+    fill(200,200,200)
+    rect(pos.x, pos.y, text_width+10, text_size,10);
 
     textAlign(CENTER,CENTER);
-    textSize(text_size);
+    
     fill(100, 100, 200);
     text(text_string,pos.x,pos.y);
+
+}
+
+function myInputEvent() {
+    console.log('you are typing: ', this.value());
+  }
+
+function loadData(dat){
+    console.log(dat)
 }
