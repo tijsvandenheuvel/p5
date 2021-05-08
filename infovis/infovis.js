@@ -20,6 +20,8 @@ function setup(){
     middleX = screenWidth/2
     middleY = screenHeight/2
 
+    console.log(data[0])
+
 }
 
 function draw(){
