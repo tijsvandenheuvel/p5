@@ -9,105 +9,115 @@ class Tree{
         let root = new Branch(rootPoint,rootPoint,baseWidth*2)
 
         // first branch
-        this.tree = [new Branch(rootPoint,end,baseWidth,root)]
+        this.canopy = [new Branch(rootPoint,end,baseWidth,root)]
 
         // first leave
-        this.tree.push(new Leaf(this.tree[0].end,this.tree[0].end,20,this.tree[0]))
-
-
-        for (let i=0; i<amount; i++){
-            this.tree.push(this.tree[i].growBranch())
-        }
+        this.canopy.push(new Leaf(this.canopy[0].end,this.canopy[0].end,20,this.canopy[0]))
     }
 
     update(){
-        // remove too thin tree
-        this.tree = this.tree.filter((branch)=>{ 
+        // remove too thin canopy
+        this.canopy = this.canopy.filter((branch)=>{ 
             return branch.width > 1;
         });
 
         // remove dead branch
-        this.tree = this.tree.filter((branch)=>{ 
+        this.canopy = this.canopy.filter((branch)=>{ 
             return !branch.dead;
         });
 
-        // remove leaves without parents
-        this.tree = this.tree.filter((branch)=>{ 
-            return this.tree.includes(branch.parent)||!branch.isLeaf();
+         // remove branches that are larger than parent
+         this.canopy = this.canopy.filter((branch)=>{ 
+            return branch.parent.width > branch.width||branch.isLeaf();
         });
 
-        // draw tree
-        for (let i=0;i<this.tree.length;i++){
-            this.tree[i].displayBranch();
+        // remove leaves without parents
+        this.canopy = this.canopy.filter((branch)=>{ 
+            return this.canopy.includes(branch.parent)||!branch.isLeaf();
+        });
+
+        // draw canopy
+        for (let i=0;i<this.canopy.length;i++){
+            this.canopy[i].displayBranch();
         }
 
         // get bigger over time
-        if(frameCount%200==0){
-            for (let i=0;i<this.tree.length;i++){
-                this.tree[i].age();
+        if(frameCount%100==0){
+            for (let i=0;i<this.canopy.length;i++){
+                this.canopy[i].age();
             }
         }
     }
 
-    // button
-    leafEnds() {
-        let newBranches = []
-        for (let i=0;i<this.tree.length;i++){
-            if(this.tree[i].nextBranches.length===0){
-                let branch = this.tree[i].growLeaf()
-                if(branch){
-                    newBranches.push(branch)
+    // activated by button
+    addLeafToEnds() {
+        let newLeaves = []
+        for (let i=0;i<this.canopy.length;i++){
+            if(this.canopy[i].nextBranches.length===0){
+                let leaf = this.canopy[i].growLeaf()
+                if(leaf){
+                    newLeaves.push(leaf)
                 }
             }
         }
-        this.tree = this.tree.concat(newBranches)
+        this.canopy = this.canopy.concat(newLeaves)
     }
 
-// button
-growAll() {
-    let newBranches = []
-    for (let i=0;i<this.tree.length;i++){
+    addLeafToRandom() {
+        let newLeaves = []
+        for (let i=0;i<this.canopy.length;i++){
+            if(random(0,1)>0.5){
+                let leaf = this.canopy[i].growLeaf()
+                if(leaf){
+                    newLeaves.push(leaf)
+                }
+            }
+        }
+        this.canopy = this.canopy.concat(newLeaves)
+    }
 
-        if(this.tree[i].isLeaf()&&this.tree[i].parent.width > 2){
+    // activated by button
+    growAll() {
+        let newBranches = []
+        for (let i=0;i<this.canopy.length;i++){
 
-            //remove reference from leaf parent
-            this.tree[i].parent.nextBranches = this.tree[i].parent.nextBranches.filter((branch)=>{ 
-                return branch !== this.tree[i];
+            if(this.canopy[i].isLeaf()&&this.canopy[i].parent.width > 2){
+
+                //remove reference from leaf parent
+                this.canopy[i].parent.nextBranches = this.canopy[i].parent.nextBranches.filter((branch)=>{ 
+                    return branch !== this.canopy[i];
                 })
 
-            // create new branch
-            let newBranch = this.tree[i].parent.growNewBranch()
+                // create new branch
+                let newBranch = this.canopy[i].parent.growNewBranch()
             
 
-            // set new branch as parent
-            let changedLeaf = this.tree[i];
-            changedLeaf.parent = newBranch;
-            changedLeaf.begin = newBranch.end;
+                // set new branch as parent
+                let changedLeaf = this.canopy[i];
+                changedLeaf.parent = newBranch;
+                changedLeaf.begin = newBranch.end;
 
-            this.tree[i] = changedLeaf;
-            newBranch.nextBranches.push(this.tree[i]);
+                this.canopy[i] = changedLeaf;
+                newBranch.nextBranches.push(this.canopy[i]);
 
-            newBranches.push(newBranch)
-            
-        }
+                newBranches.push(newBranch)
+            }
         
+        }
+        this.canopy = this.canopy.concat(newBranches);
     }
-    this.tree = this.tree.concat(newBranches);
-}
 
-removeBranch = (branchToRemove) =>{
+    removeBranch = (branchToRemove) =>{
     
-    // remove reference in parent branch
-    branchToRemove.parent.nextBranches = branchToRemove.parent.nextBranches.filter((branch)=>{ 
-        return branch !== branchToRemove;
-    })
+        // remove reference in parent branch
+        branchToRemove.parent.nextBranches = branchToRemove.parent.nextBranches.filter((branch)=>{ 
+            return branch !== branchToRemove;
+        })
 
-    //remove children
-    branchToRemove.nextBranches.forEach(branch => {
-        this.removeBranch(branch);
-    });
-
-    branchToRemove.dead=true;
-}
-
+        //remove children recursively
+        branchToRemove.nextBranches.forEach(branch => {
+            this.removeBranch(branch);
+        });
+        branchToRemove.dead=true;
+    }
 }

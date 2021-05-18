@@ -7,7 +7,7 @@ class Branch extends AbstractBranch{
 
         this.center = createVector((this.begin.x+this.end.x)/2,(this.begin.y+this.end.y)/2)
     }
-    
+
     displayBranch =function(){
         if(this.selected){
             stroke(150,150,0);
@@ -15,14 +15,12 @@ class Branch extends AbstractBranch{
             stroke(this.color[0],this.color[1],this.color[2]);
         }
 
-        
         strokeWeight(this.width);
 
         beginShape(LINES);
             vertex(this.begin.x,this.begin.y);
             vertex(this.end.x,this.end.y);
         endShape();
-        //line(this.begin.x,this.begin.y,this.end.x,this.end.y);
     }
 
     growNewBranch=function(){
@@ -77,8 +75,8 @@ class Branch extends AbstractBranch{
                     this.width*=1.1
                 }else{
                     // if small grow faster
-                    this.width*=(1+this.width/availableWidth/10)
-                    
+                    this.width*=(1+this.width/availableWidth/100)
+                    console.log((1+this.width/availableWidth/100))
                 }
                 
             }
@@ -95,5 +93,5 @@ class Branch extends AbstractBranch{
     }
 
     isLeaf = ()=>{return false}
-    
+
 }

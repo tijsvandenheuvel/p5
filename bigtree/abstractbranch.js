@@ -19,4 +19,13 @@ class AbstractBranch {
         this.color = [255, 204, 0]
     }
 
+    displayBranch = () => {}
+
+    growNewBranch = () => {}
+
+    age = () => {}
+
+    growLeaf = () =>{}
+
+    isLeaf = ()=>{}
 }
