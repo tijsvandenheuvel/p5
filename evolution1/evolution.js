@@ -29,7 +29,7 @@ function myCheckedEvent() {
 }
 
 function setup() {
-	createCanvas(750, 750);
+	createCanvas(750, 700);
 
 	checkbox = createCheckbox("run sim", false);
 	checkbox.changed(myCheckedEvent);
