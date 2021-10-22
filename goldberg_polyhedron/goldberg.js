@@ -35,7 +35,7 @@ function draw(){
     stroke(255);
 
     // turn shape with mouse
-    orbitControl();
+    // orbitControl();
 
     // auto turn 
     doRotate();
