@@ -6,17 +6,29 @@ var maxforce = 0.5;
 var generation = 0;
 var history=[];
 
-var runsim=true;
+var runsim = false;
+var initsim = true;
+var predator = false;
 
 function myCheckedEvent() {
   if (this.checked()) {runsim=true;} else {runsim=false;}
 }
+function myCheckedEvent2() {
+    if (this.checked()) {predator=true;} else {predator=false;}
+  }
 
 function setup(){
-    checkbox = createCheckbox('run', true);
-    checkbox.changed(myCheckedEvent);
+    createCanvas(750,700);
 
-    createCanvas(800,650);
+    checkbox = createCheckbox('run sim', false);
+    checkbox.changed(myCheckedEvent);
+    checkbox.position(10, 10);
+
+    checkbox2 = createCheckbox('predator', false);
+    checkbox2.changed(myCheckedEvent2);
+    checkbox2.position(80, 10);
+
+
     //rocket = new Vehicle(lifespan);
     let pop_size = 50;
     agent_population = new Population(pop_size,lifespan);
@@ -31,15 +43,21 @@ function setup(){
 }
 
 function draw(){
-    if(runsim){
+	if (initsim | runsim) {
+		initsim = false;
+
         background(0);
+        
 
         //rocket.run();
         agent_population.run(food_population.food);
         food_population.run();
-        bigBos.go(agent_population.rockets);
+        if(predator){
+            bigBos.go(agent_population.rockets);
+        }
+        
     
-        lifeP.html(count);
+        //lifeP.html(count);
         
     
         count++;
@@ -74,7 +92,7 @@ function draw(){
             generation++;
     
         }
-    
+        rect(3,3,150,20)
         //objects to avoid
         //(255)
         //rect(rx,ry,rw,rh);
