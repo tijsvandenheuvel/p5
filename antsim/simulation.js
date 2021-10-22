@@ -5,7 +5,8 @@ var pop_size = 100;
 var maxforce = 0.5;
 var maxspeed = 3;
 
-var runsim = true;
+var runsim = false;
+var initsim = true;
 
 function myCheckedEvent() {
   if (this.checked()) {runsim=true;} else {runsim=false;}
@@ -13,20 +14,21 @@ function myCheckedEvent() {
 
 function setup(){
     
-    checkbox = createCheckbox('run', true);
+    checkbox = createCheckbox('run', false);
     checkbox.changed(myCheckedEvent);
+    checkbox.position(10, 10);
 
     screenHeight = windowHeight-75
     screenWidth = windowWidth-30
     createCanvas(screenWidth,screenHeight);
 
     slider = createSlider(0, 200, pop_size); // min, max, start
-    slider.position(60,5); // x and y
+    slider.position(100,8); // x and y
     slider.size(200, 20);
     slider.input(updateAmount);
 
     ui_text = createElement('h5', slider.value());   
-    ui_text.position(300, -10);
+    ui_text.position(60, -7);
     
 
     lifeP = createP();
@@ -42,7 +44,9 @@ function setup(){
 }
 
 function draw(){
-    if(runsim){
+	if (initsim | runsim) {
+		initsim = false;
+
         background(0);
 
         if(frameCount%30==0){
@@ -70,9 +74,10 @@ function draw(){
         foodObject.show();
         colonyObject.show();
 
-        lifeP.html(count);
+        //lifeP.html(count);
         count++;
     }
+    rect(3,3,75,20)
 }
     
 function mousePressed() {
