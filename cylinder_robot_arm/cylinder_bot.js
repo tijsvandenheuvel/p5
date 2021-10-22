@@ -1,16 +1,17 @@
 
 // hiermee kunt ge via UI checkbox de simulatie stoppen
 var runsim_checkbox_value = true;
-var color_checkbox_value = false;
-var lines_checkbox_value = true;
-var points_checkbox_value = true;
+var color_checkbox_value = true;
+var lines_checkbox_value = false;
+var points_checkbox_value = false;
+var orbit_checkbox_value = false;
 
 // deze functie wordt normaal gezien 1 malig uitgevoerd in het begin
 // kan ook aangeroepen worden voor iets resetten
 function setup(modules=2,radius=150,height=50) {
 
     // initialiseer beeld met afmetingen en render engine
-    createCanvas(windowWidth*2/3, windowHeight, WEBGL);
+    createCanvas(windowWidth*2/3, windowHeight*4/5, WEBGL);
 
     // properties / constructor
     // hiermee kunt ge de simulatie parameteriseren
@@ -41,7 +42,9 @@ function draw(){
         stroke(255);
  
         // laat toe figuur met muis te manipuleren 
-        orbitControl();
+        if(orbit_checkbox_value){
+            orbitControl();
+        }
 
         // tekent referentie/ grond oppervlakske
         // zie draw_modules.js
