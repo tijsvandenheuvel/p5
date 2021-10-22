@@ -11,7 +11,7 @@ var orbit_checkbox_value = false;
 function setup(modules=2,radius=150,height=50) {
 
     // initialiseer beeld met afmetingen en render engine
-    createCanvas(windowWidth*2/3, windowHeight*4/5, WEBGL);
+    createCanvas(windowWidth*2/3, windowHeight*7/8, WEBGL);
 
     // properties / constructor
     // hiermee kunt ge de simulatie parameteriseren
