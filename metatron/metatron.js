@@ -343,4 +343,4 @@ function intersect(point1, point2, point3, point4) {
    const y = point1.y + ua * (point2.y - point1.y);
    
    return createVector(x,y)
- }
+}
