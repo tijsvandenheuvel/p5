@@ -28,8 +28,8 @@ function draw() {
         if(metatron_check){
             drawMetatron();
         }
-        if(floweroflife_check){
-            drawFlowerOflife();
+        if(fruitoflife_check){
+            drawfruitOflife();
         }
         if(tetrahedron_check){
             drawTetrahedron();
@@ -55,8 +55,8 @@ c1 = createVector(0, screenHeight / 2);
 centers = [c1];
 getBackground(c1);
 
-//get flower of life
-flowerOfLife = [getCenter()];
+//get fruit of life
+fruitOfLife = [getCenter()];
 
 // get metatron
 growMeta(1);
@@ -66,15 +66,15 @@ growMeta(2);
 
 drawIsocahedron = () =>{
     let iso = [
-        flowerOfLife[7],
-        flowerOfLife[8],
-        flowerOfLife[9],
-        flowerOfLife[10],
-        flowerOfLife[11],
-        flowerOfLife[12],
-        flowerOfLife[1],
-        flowerOfLife[5],
-        flowerOfLife[6],
+        fruitOfLife[7],
+        fruitOfLife[8],
+        fruitOfLife[9],
+        fruitOfLife[10],
+        fruitOfLife[11],
+        fruitOfLife[12],
+        fruitOfLife[1],
+        fruitOfLife[5],
+        fruitOfLife[6],
     ]
     drawLine(iso[0],iso[3])
     drawLine(iso[0],iso[2])
@@ -97,7 +97,7 @@ drawIsocahedron = () =>{
 }
 
 drawDodecahedron = () =>{
-    let fol = flowerOfLife;
+    let fol = fruitOfLife;
 
     let dode = [
         fol[0],
@@ -155,12 +155,12 @@ drawDodecahedron = () =>{
 
 drawOctahedron = () =>{
     let octa = [
-        flowerOfLife[7],
-        flowerOfLife[8],
-        flowerOfLife[9],
-        flowerOfLife[10],
-        flowerOfLife[11],
-        flowerOfLife[12],
+        fruitOfLife[7],
+        fruitOfLife[8],
+        fruitOfLife[9],
+        fruitOfLife[10],
+        fruitOfLife[11],
+        fruitOfLife[12],
     ]
 
     //octa.forEach(p=>drawPoint(p))
@@ -181,10 +181,10 @@ drawOctahedron = () =>{
 
 drawTetrahedron = () => {
     let tetra = [
-        flowerOfLife[0],
-        flowerOfLife[7],
-        flowerOfLife[11],
-        flowerOfLife[12],
+        fruitOfLife[0],
+        fruitOfLife[7],
+        fruitOfLife[11],
+        fruitOfLife[12],
     ]
    //tetra.forEach(p=>drawPoint(p))
     drawLine(tetra[0],tetra[1])
@@ -197,13 +197,13 @@ drawTetrahedron = () => {
 
 drawCube = () => {
     let cube = [
-        flowerOfLife[0],
-        flowerOfLife[7],
-        flowerOfLife[8],
-        flowerOfLife[9],
-        flowerOfLife[10],
-        flowerOfLife[11],
-        flowerOfLife[12],
+        fruitOfLife[0],
+        fruitOfLife[7],
+        fruitOfLife[8],
+        fruitOfLife[9],
+        fruitOfLife[10],
+        fruitOfLife[11],
+        fruitOfLife[12],
     ]
     drawLine(cube[0],cube[2])
     drawLine(cube[0],cube[3])
@@ -216,12 +216,12 @@ drawCube = () => {
     drawLine(cube[6],cube[4])
 }
 
-drawFlowerOflife = () =>{
+drawfruitOflife = () =>{
     push();
         strokeWeight(3);
 		stroke(105, 2, 164);
 		noFill();
-    flowerOfLife.forEach((c) => {
+    fruitOfLife.forEach((c) => {
 		
 		circle(c.x, c.y, r * 2);
 	});
@@ -234,8 +234,8 @@ drawMetatron = () => {
 	push();
 	    stroke(255);
 	    strokeWeight(1);
-	    flowerOfLife.forEach((p) => {
-		    flowerOfLife.forEach((p2) => {
+	    fruitOfLife.forEach((p) => {
+		    fruitOfLife.forEach((p2) => {
 			    line(p.x, p.y, p2.x, p2.y);
 		    });
 	    });
@@ -251,7 +251,7 @@ growMeta = (x) => {
 	let rtt = createVector(c.x + (sqrt(3) / 2) * r * 2 * x, c.y - r * x);
 	let rdd = createVector(c.x + (sqrt(3) / 2) * r * 2 * x, c.y + r * x);
 
-	flowerOfLife = flowerOfLife.concat([tt, bb, ltt, rtt, ldd, rdd]);
+	fruitOfLife = fruitOfLife.concat([tt, bb, ltt, rtt, ldd, rdd]);
 };
 
 getCenter = () => {

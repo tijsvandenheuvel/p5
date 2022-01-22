@@ -1,5 +1,5 @@
 var metatron_check = true;
-var floweroflife_check = true;
+var fruitoflife_check = true;
 var background_check = false;
 var tetrahedron_check = false;
 var hexahedron_check = false;
@@ -22,29 +22,29 @@ function getCheckboxes(){
 	checkbox_metatron.changed(myCheckedEvent2);
 	checkbox_metatron.position(ui_x_pos, 60);
 
-	checkbox_floweroflife = createCheckbox("flower of life", floweroflife_check);
-	checkbox_floweroflife.changed(myCheckedEvent3);
-	checkbox_floweroflife.position(ui_x_pos, 80);
+	checkbox_fruitoflife = createCheckbox("fruit of life", fruitoflife_check);
+	checkbox_fruitoflife.changed(myCheckedEvent3);
+	checkbox_fruitoflife.position(ui_x_pos, 80);
 
-    checkbox_floweroflife = createCheckbox("tetrahedron", tetrahedron_check);
-	checkbox_floweroflife.changed(myCheckedEvent4);
-	checkbox_floweroflife.position(ui_x_pos, 100);
+    checkbox_fruitoflife = createCheckbox("tetrahedron", tetrahedron_check);
+	checkbox_fruitoflife.changed(myCheckedEvent4);
+	checkbox_fruitoflife.position(ui_x_pos, 100);
 
-    checkbox_floweroflife = createCheckbox("hexahedron", hexahedron_check);
-	checkbox_floweroflife.changed(myCheckedEvent5);
-	checkbox_floweroflife.position(ui_x_pos, 120);
+    checkbox_fruitoflife = createCheckbox("hexahedron", hexahedron_check);
+	checkbox_fruitoflife.changed(myCheckedEvent5);
+	checkbox_fruitoflife.position(ui_x_pos, 120);
 
-    checkbox_floweroflife = createCheckbox("octahedron", octahedron_check);
-	checkbox_floweroflife.changed(myCheckedEvent6);
-	checkbox_floweroflife.position(ui_x_pos, 140);
+    checkbox_fruitoflife = createCheckbox("octahedron", octahedron_check);
+	checkbox_fruitoflife.changed(myCheckedEvent6);
+	checkbox_fruitoflife.position(ui_x_pos, 140);
 
-    checkbox_floweroflife = createCheckbox("dodecahedron", dodecahedron_check);
-	checkbox_floweroflife.changed(myCheckedEvent7);
-	checkbox_floweroflife.position(ui_x_pos, 160);
+    checkbox_fruitoflife = createCheckbox("dodecahedron", dodecahedron_check);
+	checkbox_fruitoflife.changed(myCheckedEvent7);
+	checkbox_fruitoflife.position(ui_x_pos, 160);
 
-    checkbox_floweroflife = createCheckbox("isocahedron", isocahedron_check);
-	checkbox_floweroflife.changed(myCheckedEvent8);
-	checkbox_floweroflife.position(ui_x_pos, 180);
+    checkbox_fruitoflife = createCheckbox("isocahedron", isocahedron_check);
+	checkbox_fruitoflife.changed(myCheckedEvent8);
+	checkbox_fruitoflife.position(ui_x_pos, 180);
 }
 
 function myCheckedEvent1(){
@@ -54,7 +54,7 @@ function myCheckedEvent2(){
     metatron_check = this.checked();
 }
 function myCheckedEvent3(){
-    floweroflife_check = this.checked();
+    fruitoflife_check = this.checked();
 }
 function myCheckedEvent4(){
     tetrahedron_check = this.checked();
