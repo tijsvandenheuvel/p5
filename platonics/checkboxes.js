@@ -4,7 +4,7 @@ var tetrahedron_check = true;
 var hexahedron_check = true;
 var octahedron_check = true;
 var dodecahedron_check = true;
-var isocahedron_check = true;
+var icosahedron_check = true;
 
 function getCheckboxes(){
     ui_x_pos = windowWidth * (5 / 6);
@@ -21,7 +21,7 @@ function getCheckboxes(){
 	checkbox_fruitoflife.changed(myCheckedEvent3);
 	checkbox_fruitoflife.position(ui_x_pos, 60);
 
-    checkbox_floweroflife = createCheckbox("isocahedron", isocahedron_check);
+    checkbox_floweroflife = createCheckbox("icosahedron", icosahedron_check);
 	checkbox_floweroflife.changed(myCheckedEvent8);
 	checkbox_floweroflife.position(ui_x_pos, 100);
 
@@ -40,18 +40,6 @@ function getCheckboxes(){
     checkbox_floweroflife = createCheckbox("octahedron", octahedron_check);
 	checkbox_floweroflife.changed(myCheckedEvent6);
 	checkbox_floweroflife.position(ui_x_pos, 180);
-
-
-
-
-
- 
-
-
-
-
- 
-
 
 }
 
@@ -74,5 +62,5 @@ function myCheckedEvent7(){
     dodecahedron_check = this.checked();
 }
 function myCheckedEvent8(){
-    isocahedron_check = this.checked();
+    icosahedron_check = this.checked();
 }

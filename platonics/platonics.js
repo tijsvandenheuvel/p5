@@ -20,8 +20,8 @@ function draw() {
 
 		background(200);
 
-		if (isocahedron_check) {
-			drawIsocahedron();
+		if (icosahedron_check) {
+			drawIcosahedron();
 		}
 
 		if (dodecahedron_check) {
@@ -45,7 +45,7 @@ function draw() {
 getGeometricObjects = () => {
 	c = createVector(0, 0, 0);
 
-	i = getIso();
+	i = getIco();
 
 	d = getDode();
 
@@ -56,7 +56,7 @@ getGeometricObjects = () => {
 	t = getTetra();
 };
 
-getIso = () => {
+getIco = () => {
 	let a = r;
 	let phi = (1 + sqrt(5)) / 2;
 	let b = a * phi;
@@ -74,9 +74,9 @@ getIso = () => {
 	v10 = createVector(-a, 0, -b);
 	v11 = createVector(a, 0, -b);
 	v12 = createVector(-a, 0, b);
-	iso = [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12];
+	ico = [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12];
 
-	return iso;
+	return ico;
 };
 
 getDode = () => {
@@ -243,7 +243,7 @@ drawDodecahedron = () =>{
     if (points_check){d.forEach(p => drawPoint(p))}
 }
 
-drawIsocahedron = () => {
+drawIcosahedron = () => {
 
     stroke(255,165,0);
 
