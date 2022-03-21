@@ -54,7 +54,7 @@ This is an experiment of textual information visualisation.
 
 To run click [here](https://tijsvandenheuvel.github.io/p5/infovis/)
 
-## Mandelbrot
+## Julia
 
 This is a visualisation of the Julia set from the Mandelbrot set
 
