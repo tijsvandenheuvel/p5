@@ -98,7 +98,7 @@ function drawJulia(){
 	}
 }
 function draw() {
-	if (frameCount % 10 == 0) {
+	if (frameCount % 1 == 0) {
         pixelDensity(1);
 	    loadPixels();
 
