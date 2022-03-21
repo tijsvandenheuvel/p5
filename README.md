@@ -56,6 +56,12 @@ To run click [here](https://tijsvandenheuvel.github.io/p5/infovis/)
 
 ## Mandelbrot
 
+This is a visualisation of the Julia set from the Mandelbrot set
+
+To run click [here](https://tijsvandenheuvel.github.io/p5/julia/)
+
+## Mandelbrot
+
 This is a visualisation of the Mandelbrot set
 
 To run click [here](https://tijsvandenheuvel.github.io/p5/mandelbrot/)
