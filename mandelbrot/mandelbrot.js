@@ -1,8 +1,9 @@
-// source: https://www.youtube.com/watch?v=6z7GQewK-Ks&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=24
+// source mandelbrot: https://www.youtube.com/watch?v=6z7GQewK-Ks&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=24
+// source julia: https://www.youtube.com/watch?v=fAsaSkmbF5s&list=PLRqwX-V7Uu6ZiZxtDDRCi6uhfTH4FilpH&index=25
 
 var cx = -0.45;
 var cy = 0;
-var zoom = 1.15
+var zoom = 1.5
 var zoomSlider;
 var maxiterations = 100;
 
@@ -18,25 +19,29 @@ function drawMandelbrot(){
     zoom = zoomSlider.value()
 	pixelDensity(1);
 	loadPixels();
+    // for each pixel
 	for (let x = 0; x < width; x++) {
 		for (let y = 0; y < height; y++) {
+            // map to value around
             var a = map(x,0,width,cx-zoom,cx+zoom);
             var b = map(y,0,height,cy-zoom,cy+zoom);
 
-            var originala = a;
-            var originalb = b;
+            // Z0 = 0
+            var ca = a;
+            var cb = b;
 
             var iteration = 0;
-
             while(iteration<maxiterations){
-                var newa = a*a - b*b;
-                var newb = 2*a*b;
+                // Z = Z^2+C
+                // (a+bi)^2 = (a^2 - b^2) + (2ab)i 
+                let newa = (a*a - b*b);
+                let newb = (2*a*b);
 
-                a = newa + originala;
-                b = newb + originalb;
+                a = newa + ca;
+                b = newb + cb;
 
                 // if values diverge (towards infinity)
-                if(abs(a+b)>16){
+                if(abs(a+b)>4){
                     break;
                 }
 
