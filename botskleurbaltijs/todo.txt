@@ -1,0 +1,3 @@
+V - input om te kiezen hoeveel ballen je hebt
+- klik op bal om die te ontploffen
+- genereer nieuwe bolletjes
