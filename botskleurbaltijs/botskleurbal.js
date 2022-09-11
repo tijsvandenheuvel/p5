@@ -16,7 +16,7 @@ function setup(
 	w = windowWidth;
 	h = windowHeight;
 
-	// input elementen om aantal enzo te kiezen
+	// input elementen om aantal (enzo) te kiezen
 	createInputs(aantal);
 
 	createCanvas(w, h);
@@ -83,6 +83,17 @@ class Bolletjes {
 
 		this.add(pos1, vel1, size1, col1);
 	}
+    explodeBolWaaropGekliktWordt(mouse_pos){
+        for (let i = 0; i < this.pop.length; i++) {
+            // afstand tussen muis en bolletje
+            let dist = mouse_pos.dist(this.pop[i].pos);
+    
+            // als de afstand kleiner is dan half de size zit je erop.
+            if (dist < this.pop[i].size / 2) {
+                this.pop[i].explode();
+            }
+        }
+    }
 }
 
 class Bolletje {
@@ -120,7 +131,7 @@ class Bolletje {
 
 			// als ge botst ma ni botsen met uzelf
 			// als de afstand kleiner is dan de helft van de size van de grootste
-			if (dist > 0 && dist < Math.max(this.size, bol.size) / 2) {
+			if (dist > 0 && dist < Math.max(this.size, bol.size)/2) {
 				this.merge(bol, i);
 			}
 		}
@@ -208,15 +219,5 @@ function keyTyped() {
 // bol ontploft wanneer je erop klikt
 function mousePressed() {
 	let mouse_pos = createVector(mouseX, mouseY);
-
-	// check alle bolletjes
-	for (let i = 0; i < bolletjes.pop.length; i++) {
-		// afstand tussen muis en bolletje
-		let dist = mouse_pos.dist(bolletjes.pop[i].pos);
-
-		// als de afstand kleiner is dan half de size zit je erop.
-		if (dist < bolletjes.pop[i].size / 2) {
-			bolletjes.pop[i].explode();
-		}
-	}
+    bolletjes.explodeBolWaaropGekliktWordt(mouse_pos)
 }
