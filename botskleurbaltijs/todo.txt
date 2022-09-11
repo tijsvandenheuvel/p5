@@ -4,6 +4,9 @@ V - genereer nieuwe bolletjes
 V - genereer automatisch nieuwe bolletjes
 V - ontplof automatisch als je te groot bent
 V - bij explode verdwijnt er soms ene van het veld
-- snelheid na merge afhankelijk van grootte van beide
-- bolletjes gaan soms nog gedeeltelijk door elkaar?
+V - bolletjes gaan soms nog gedeeltelijk door elkaar?
+V - snelheid na merge afhankelijk van grootte van beide
+V - positie van gemergede bol afhankelijk van beide 
+V - bots met rand tegen rand (momenteel met middelpunt)
 - maak max snelheid en max size ook variabel
+- implementeer meer fysica zoals versnelling & snelheid afhankelijk van grootte (explosie -> wint snelheid & verliest massa)

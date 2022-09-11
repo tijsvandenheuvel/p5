@@ -110,17 +110,19 @@ class Bolletje {
 	}
 	beweeg() {
 		this.pos.add(this.vel);
+
+        let r = this.size/2;
 		// botsen tegen rand
-		if (this.pos.y >= h) {
+		if (this.pos.y+r >= h) {
 			this.vel.y = -Math.abs(this.vel.y);
 		}
-		if (this.pos.y <= 0) {
+		if (this.pos.y-r <= 0) {
 			this.vel.y = Math.abs(this.vel.y);
 		}
-		if (this.pos.x >= w) {
+		if (this.pos.x+r >= w) {
 			this.vel.x = -Math.abs(this.vel.x);
 		}
-		if (this.pos.x <= 0) {
+		if (this.pos.x-r <= 0) {
 			this.vel.x = Math.abs(this.vel.x);
 		}
 		// bots tegen elkaar
@@ -130,8 +132,8 @@ class Bolletje {
 			let dist = this.pos.dist(bol.pos);
 
 			// als ge botst ma ni botsen met uzelf
-			// als de afstand kleiner is dan de helft van de size van de grootste
-			if (dist > 0 && dist < Math.max(this.size, bol.size)/2) {
+			// als de afstand kleiner is dan de helft van de size van beide
+			if (dist > 0 && dist < (this.size + bol.size)/2) {
 				this.merge(bol, i);
 			}
 		}
@@ -140,7 +142,19 @@ class Bolletje {
 		// je wordt zelf de nieuwe bol
 		this.size = 0.95 * (this.size + bol.size);
 		this.color = telKleurenOp(this.color, bol.color);
-		this.vel = gemiddelde(this.vel, bol.vel);
+
+        this.pos = gemiddelde(this.pos, bol.pos);
+
+		// let gemiddeld = gemiddelde(this.vel, bol.vel);
+        // gewogen gemiddelde
+        // hoe groter hoe meer impact 
+        let total_size = (this.size + bol.size);
+        let gg = gemiddelde(
+            createVector(this.vel.x*this.size,this.vel.y*this.size),
+            createVector(bol.vel.x*bol.size,bol.vel.y*bol.size));
+        gg = createVector(gg.x/total_size,gg.y/total_size)
+        this.vel = gg;
+
 		// andere bol verwijderen
 		bolletjes.pop.splice(i, 1);
 	}
