@@ -1,3 +1,9 @@
 V - input om te kiezen hoeveel ballen je hebt
-- klik op bal om die te ontploffen
-- genereer nieuwe bolletjes
+V - klik op bal om die te ontploffen
+V - genereer nieuwe bolletjes
+V - genereer automatisch nieuwe bolletjes
+V - ontplof automatisch als je te groot bent
+V - bij explode verdwijnt er soms ene van het veld
+- snelheid na merge afhankelijk van grootte van beide
+- bolletjes gaan soms nog gedeeltelijk door elkaar?
+- maak max snelheid en max size ook variabel
