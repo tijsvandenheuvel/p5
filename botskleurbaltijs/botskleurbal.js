@@ -109,10 +109,8 @@ class Bolletje {
 		point(this.pos.x, this.pos.y);
 	}
 	beweeg() {
-		this.pos.add(this.vel);
-
-        let r = this.size/2;
 		// botsen tegen rand
+        let r = this.size/2;
 		if (this.pos.y+r >= h) {
 			this.vel.y = -Math.abs(this.vel.y);
 		}
@@ -137,6 +135,9 @@ class Bolletje {
 				this.merge(bol, i);
 			}
 		}
+
+        // doe de eigenlijke beweging
+        this.pos.add(this.vel);
 	}
 	merge(bol, i) {
 		// je wordt zelf de nieuwe bol
@@ -164,7 +165,7 @@ class Bolletje {
 		this.size = new_size;
 
 		// new velocity, a bit more than old vel
-		let vel2 = createVector(-this.vel.x * 1.2, -this.vel.y * 1.2);
+		let vel2 = createVector(-this.vel.x * 1.4, -this.vel.y * 1.4);
 
 		// new position in the direction of new vel
 		let pos2;

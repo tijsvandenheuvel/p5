@@ -1,3 +1,5 @@
+V - maak fullscreen
+V - encapsuleer logica in functies en Klassen
 V - input om te kiezen hoeveel ballen je hebt
 V - klik op bal om die te ontploffen
 V - genereer nieuwe bolletjes
