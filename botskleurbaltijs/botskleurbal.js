@@ -5,7 +5,7 @@ var bolletjes;
 
 var global_aantal = 20;
 var global_vel_limit = 6;
-var global_size_limit = 30;
+var global_size_limit = 50;
 
 // wordt 1 keer uitgevoerd
 function setup(
@@ -112,15 +112,19 @@ class Bolletje {
 		// botsen tegen rand
         let r = this.size/2;
 		if (this.pos.y+r >= h) {
+            this.pos.y = h-r;
 			this.vel.y = -Math.abs(this.vel.y);
 		}
 		if (this.pos.y-r <= 0) {
+            this.pos.y = r;
 			this.vel.y = Math.abs(this.vel.y);
 		}
 		if (this.pos.x+r >= w) {
+            this.pos.x = w-r;
 			this.vel.x = -Math.abs(this.vel.x);
 		}
 		if (this.pos.x-r <= 0) {
+            this.pos.x = r;
 			this.vel.x = Math.abs(this.vel.x);
 		}
 		// bots tegen elkaar
@@ -165,7 +169,7 @@ class Bolletje {
 		this.size = new_size;
 
 		// new velocity, a bit more than old vel
-		let vel2 = createVector(-this.vel.x * 1.4, -this.vel.y * 1.4);
+		let vel2 = createVector(-this.vel.x * 2, -this.vel.y * 2);
 
 		// new position in the direction of new vel
 		let pos2;
@@ -197,7 +201,9 @@ function telKleurenOp(col1, col2) {
 	let g2 = col2.levels[1];
 	let b2 = col2.levels[2];
 
-	let nieuwe_kleur = color((r1 + r2) % 255, (g1 + g2) % 255, (b1 + b2) % 255);
+	// let nieuwe_kleur = color((r1 + r2) % 255, (g1 + g2) % 255, (b1 + b2) % 255);
+	let nieuwe_kleur = color((r1 + r2)/2, (g1 + g2)/2, (b1 + b2)/2);
+
 
 	return nieuwe_kleur;
 }

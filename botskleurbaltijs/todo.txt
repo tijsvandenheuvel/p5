@@ -5,10 +5,16 @@ V - klik op bal om die te ontploffen
 V - genereer nieuwe bolletjes
 V - genereer automatisch nieuwe bolletjes
 V - ontplof automatisch als je te groot bent
-V - bij explode verdwijnt er soms ene van het veld
+V - bij explode verdwijnt er soms ene van het veld 
+- check hoeken
 V - bolletjes gaan soms nog gedeeltelijk door elkaar?
 V - snelheid na merge afhankelijk van grootte van beide
 V - positie van gemergede bol afhankelijk van beide 
 V - bots met rand tegen rand (momenteel met middelpunt)
 - maak max snelheid en max size ook variabel
-- implementeer meer fysica zoals versnelling & snelheid afhankelijk van grootte (explosie -> wint snelheid & verliest massa)
+- implementeer versnelling 
+- implementeer aantrekkingskracht 
+- variabele grootte van explosie -> wint snelheid & verliest massa
+- grote ballen gaan trager omdat kleine ballen minder invloed uitoefenen op snelheid
+- kleurenmix
+
