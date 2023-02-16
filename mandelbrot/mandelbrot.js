@@ -4,7 +4,7 @@
 var cx = -0.45;
 var cy = 0;
 var zoom = 1.5
-var zoomSlider;
+var zoomSlider, powerSlider;
 var maxiterations = 100;
 
 function setup() {
@@ -12,11 +12,17 @@ function setup() {
     zoomSlider = createSlider(0.0001,zoom, zoom, 0.0001);
     zoomSlider.position(10, 610);
     zoomSlider.size(600, 20);
+
+    powerSlider = createSlider(-10,10,2,0.1);
+    powerSlider.position(10, 640);
+    powerSlider.size(600, 20);
+
     drawMandelbrot();
 }
 
 function drawMandelbrot(){
     zoom = zoomSlider.value()
+    power = powerSlider.value()
 	pixelDensity(1);
 	loadPixels();
     // for each pixel
@@ -34,6 +40,7 @@ function drawMandelbrot(){
             while(iteration<maxiterations){
                 // Z = Z^2+C
                 // (a+bi)^2 = (a^2 - b^2) + (2ab)i 
+                // how to do other powers?
                 let newa = (a*a - b*b);
                 let newb = (2*a*b);
 
