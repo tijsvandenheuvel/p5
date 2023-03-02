@@ -3,8 +3,8 @@ let sketch = function(p) {
     let lokalen_dak;
 
     p.preload = function(){
-        lokalen_base = p.loadModel("lokalen_base.obj");
-        lokalen_dak = p.loadModel("lokalen_dak.obj");
+        lokalen_base = p.loadModel("lokalen_base_5.obj");
+        lokalen_dak = p.loadModel("lokalen_dak_3.obj");
     }
     p.setup = function(){
         screenHeight = p.windowHeight - 60;
@@ -39,11 +39,11 @@ let sketch = function(p) {
         p.push();
         p.rotateX(p.PI / 2);
         p.translate(-2750, -7500, 0);
-        p.stroke(142, 62, 51);
         p.fill('#c7bea0');
-            //model(lokalen);
+        p.stroke('#a9ad89');
         p.model(lokalen_base);
-        p.fill(182, 102, 91)
+        p.stroke('#a45b6e');
+        p.fill('#b6665b')
         p.model(lokalen_dak);
         p.pop();
     }
