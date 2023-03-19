@@ -7,7 +7,7 @@ let sketch = function(p) {
         lokalen_dak = p.loadModel("lokalen_dak_3.obj");
     }
     p.setup = function(){
-        screenHeight = p.windowHeight - 60;
+        screenHeight = p.windowHeight;
         screenWidth = p.windowWidth * 0.999;
     
         p.createCanvas(screenWidth, screenHeight, p.WEBGL);
